@@ -70,14 +70,14 @@ public:
     QtCanvasViewData() {}
     QMatrix xform;
     QMatrix ixform;
-    bool highQuality;
+    bool highQuality {};
 };
 
 // clusterizer
 
 class QtCanvasClusterizer {
 public:
-    QtCanvasClusterizer(int maxclusters);
+    explicit QtCanvasClusterizer(int maxclusters);
     ~QtCanvasClusterizer();
 
     void add(int x, int y); // 1x1 rectangle (point)

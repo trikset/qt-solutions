@@ -73,6 +73,7 @@ class QtPropertyPrivate;
 
 class QT_QTPROPERTYBROWSER_EXPORT QtProperty
 {
+	Q_DISABLE_COPY(QtProperty)
 public:
     virtual ~QtProperty();
 

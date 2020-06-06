@@ -298,10 +298,10 @@ private:
 
     QRect changeBounds();
 
-    int awidth,aheight;
-    int chunksize;
-    int maxclusters;
-    int chwidth,chheight;
+	int awidth,aheight;
+	int chunksize;
+	int maxclusters;
+	int chwidth,chheight;
     QtCanvasChunk* chunks;
 
     QtCanvasData* d;

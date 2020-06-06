@@ -60,7 +60,7 @@ class QtPropertyEditorView;
 
 class QtTreePropertyBrowserPrivate
 {
-    QtTreePropertyBrowser *q_ptr;
+    QtTreePropertyBrowser *q_ptr {};
     Q_DECLARE_PUBLIC(QtTreePropertyBrowser)
 
 public:
@@ -120,7 +120,7 @@ class QtPropertyEditorView : public QTreeWidget
 {
     Q_OBJECT
 public:
-    QtPropertyEditorView(QWidget *parent = 0);
+    explicit QtPropertyEditorView(QWidget *parent = 0);
 
     void setEditorPrivate(QtTreePropertyBrowserPrivate *editorPrivate)
         { m_editorPrivate = editorPrivate; }
@@ -220,7 +220,7 @@ class QtPropertyEditorDelegate : public QItemDelegate
 {
     Q_OBJECT
 public:
-    QtPropertyEditorDelegate(QObject *parent = 0)
+    explicit QtPropertyEditorDelegate(QObject *parent = 0)
         : QItemDelegate(parent), m_editorPrivate(0), m_editedItem(0), m_editedWidget(0), m_disablePainting(false)
         {}
 

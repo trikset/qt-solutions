@@ -56,11 +56,11 @@ QT_BEGIN_NAMESPACE
 class QtPropertyPrivate
 {
 public:
-    QtPropertyPrivate(QtAbstractPropertyManager *manager)
+    explicit QtPropertyPrivate(QtAbstractPropertyManager *manager)
         : m_enabled(true),
           m_modified(false),
           m_manager(manager) {}
-    QtProperty *q_ptr;
+    QtProperty *q_ptr {};
 
     QSet<QtProperty *> m_parentItems;
     QList<QtProperty *> m_subItems;
@@ -69,15 +69,15 @@ public:
     QString m_statusTip;
     QString m_whatsThis;
     QString m_name;
-    bool m_enabled;
-    bool m_modified;
+    bool m_enabled {};
+    bool m_modified {};
 
-    QtAbstractPropertyManager * const m_manager;
+    QtAbstractPropertyManager * const m_manager {};
 };
 
 class QtAbstractPropertyManagerPrivate
 {
-    QtAbstractPropertyManager *q_ptr;
+    QtAbstractPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtAbstractPropertyManager)
 public:
     void propertyDestroyed(QtProperty *property);
@@ -1230,7 +1230,7 @@ Q_GLOBAL_STATIC(Map2, m_managerToFactoryToViews)
 
 class QtAbstractPropertyBrowserPrivate
 {
-    QtAbstractPropertyBrowser *q_ptr;
+    QtAbstractPropertyBrowser *q_ptr {};
     Q_DECLARE_PUBLIC(QtAbstractPropertyBrowser)
 public:
     QtAbstractPropertyBrowserPrivate();
@@ -1354,7 +1354,7 @@ void QtAbstractPropertyBrowserPrivate::createBrowserIndexes(QtProperty *property
         if (it == m_propertyToIndexes.constEnd())
             return;
 
-        QList<QtBrowserItem *> indexes = it.value();
+    	 const QList<QtBrowserItem *> &indexes = it.value();
         QListIterator<QtBrowserItem *> itIndex(indexes);
         while (itIndex.hasNext()) {
             QtBrowserItem *idx = itIndex.next();
@@ -1368,7 +1368,7 @@ void QtAbstractPropertyBrowserPrivate::createBrowserIndexes(QtProperty *property
         if (it == m_propertyToIndexes.constEnd())
             return;
 
-        QList<QtBrowserItem *> indexes = it.value();
+       const QList<QtBrowserItem *> &indexes = it.value();
         QListIterator<QtBrowserItem *> itIndex(indexes);
         while (itIndex.hasNext()) {
             QtBrowserItem *idx = itIndex.next();
@@ -1413,9 +1413,9 @@ void QtAbstractPropertyBrowserPrivate::removeBrowserIndexes(QtProperty *property
     QMap<QtProperty *, QList<QtBrowserItem *> >::ConstIterator it =
         m_propertyToIndexes.find(property);
     if (it == m_propertyToIndexes.constEnd())
-        return;
+    	return;
 
-    QList<QtBrowserItem *> indexes = it.value();
+    const QList<QtBrowserItem *> &indexes = it.value();
     QListIterator<QtBrowserItem *> itIndex(indexes);
     while (itIndex.hasNext()) {
         QtBrowserItem *idx = itIndex.next();
@@ -1501,9 +1501,9 @@ void QtAbstractPropertyBrowserPrivate::slotPropertyDataChanged(QtProperty *prope
     QMap<QtProperty *, QList<QtBrowserItem *> >::ConstIterator it =
             m_propertyToIndexes.find(property);
     if (it == m_propertyToIndexes.constEnd())
-        return;
+    	return;
 
-    QList<QtBrowserItem *> indexes = it.value();
+    const QList<QtBrowserItem *> &indexes = it.value();
     QListIterator<QtBrowserItem *> itIndex(indexes);
     while (itIndex.hasNext()) {
         QtBrowserItem *idx = itIndex.next();

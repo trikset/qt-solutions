@@ -146,9 +146,8 @@ static QtProperty *wrappedProperty(QtProperty *property)
 
 class QtVariantPropertyPrivate
 {
-    QtVariantProperty *q_ptr;
 public:
-    QtVariantPropertyPrivate(QtVariantPropertyManager *m) : manager(m) {}
+    explicit QtVariantPropertyPrivate(QtVariantPropertyManager *m) : manager(m) {}
 
     QtVariantPropertyManager *manager;
 };
@@ -296,15 +295,15 @@ void QtVariantProperty::setAttribute(const QString &attribute, const QVariant &v
 
 class QtVariantPropertyManagerPrivate
 {
-    QtVariantPropertyManager *q_ptr;
+    QtVariantPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtVariantPropertyManager)
 public:
     QtVariantPropertyManagerPrivate();
 
-    bool m_creatingProperty;
-    bool m_creatingSubProperties;
-    bool m_destroyingSubProperties;
-    int m_propertyType;
+    bool m_creatingProperty {};
+    bool m_creatingSubProperties {};
+    bool m_destroyingSubProperties {};
+    int m_propertyType {};
 
     void slotValueChanged(QtProperty *property, int val);
     void slotRangeChanged(QtProperty *property, int min, int max);
@@ -1960,23 +1959,23 @@ QtProperty *QtVariantPropertyManager::createProperty()
 
 class QtVariantEditorFactoryPrivate
 {
-    QtVariantEditorFactory *q_ptr;
+    QtVariantEditorFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtVariantEditorFactory)
 public:
 
-    QtSpinBoxFactory           *m_spinBoxFactory;
-    QtDoubleSpinBoxFactory     *m_doubleSpinBoxFactory;
-    QtCheckBoxFactory          *m_checkBoxFactory;
-    QtLineEditFactory          *m_lineEditFactory;
-    QtDateEditFactory          *m_dateEditFactory;
-    QtTimeEditFactory          *m_timeEditFactory;
-    QtDateTimeEditFactory      *m_dateTimeEditFactory;
-    QtKeySequenceEditorFactory *m_keySequenceEditorFactory;
-    QtCharEditorFactory        *m_charEditorFactory;
-    QtEnumEditorFactory        *m_comboBoxFactory;
-    QtCursorEditorFactory      *m_cursorEditorFactory;
-    QtColorEditorFactory       *m_colorEditorFactory;
-    QtFontEditorFactory        *m_fontEditorFactory;
+    QtSpinBoxFactory           *m_spinBoxFactory {};
+    QtDoubleSpinBoxFactory     *m_doubleSpinBoxFactory {};
+    QtCheckBoxFactory          *m_checkBoxFactory {};
+    QtLineEditFactory          *m_lineEditFactory {};
+    QtDateEditFactory          *m_dateEditFactory {};
+    QtTimeEditFactory          *m_timeEditFactory {};
+    QtDateTimeEditFactory      *m_dateTimeEditFactory {};
+    QtKeySequenceEditorFactory *m_keySequenceEditorFactory {};
+    QtCharEditorFactory        *m_charEditorFactory {};
+    QtEnumEditorFactory        *m_comboBoxFactory {};
+    QtCursorEditorFactory      *m_cursorEditorFactory {};
+    QtColorEditorFactory       *m_colorEditorFactory {};
+    QtFontEditorFactory        *m_fontEditorFactory {};
 
     QMap<QtAbstractEditorFactoryBase *, int> m_factoryToType;
     QMap<int, QtAbstractEditorFactoryBase *> m_typeToFactory;

@@ -142,7 +142,7 @@ void EditorFactoryPrivate<Editor>::slotEditorDestroyed(QObject *object)
 
 class QtSpinBoxFactoryPrivate : public EditorFactoryPrivate<QSpinBox>
 {
-    QtSpinBoxFactory *q_ptr;
+    QtSpinBoxFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtSpinBoxFactory)
 public:
 
@@ -322,7 +322,7 @@ void QtSpinBoxFactory::disconnectPropertyManager(QtIntPropertyManager *manager)
 
 class QtSliderFactoryPrivate : public EditorFactoryPrivate<QSlider>
 {
-    QtSliderFactory *q_ptr;
+    QtSliderFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtSliderFactory)
 public:
     void slotPropertyChanged(QtProperty *property, int value);
@@ -475,7 +475,7 @@ void QtSliderFactory::disconnectPropertyManager(QtIntPropertyManager *manager)
 
 class QtScrollBarFactoryPrivate : public  EditorFactoryPrivate<QScrollBar>
 {
-    QtScrollBarFactory *q_ptr;
+    QtScrollBarFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtScrollBarFactory)
 public:
     void slotPropertyChanged(QtProperty *property, int value);
@@ -627,7 +627,7 @@ void QtScrollBarFactory::disconnectPropertyManager(QtIntPropertyManager *manager
 
 class QtCheckBoxFactoryPrivate : public EditorFactoryPrivate<QtBoolEdit>
 {
-    QtCheckBoxFactory *q_ptr;
+    QtCheckBoxFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtCheckBoxFactory)
 public:
     void slotPropertyChanged(QtProperty *property, bool value);
@@ -758,7 +758,7 @@ void QtCheckBoxFactory::disconnectPropertyManager(QtBoolPropertyManager *manager
 
 class QtDoubleSpinBoxFactoryPrivate : public EditorFactoryPrivate<QDoubleSpinBox>
 {
-    QtDoubleSpinBoxFactory *q_ptr;
+    QtDoubleSpinBoxFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtDoubleSpinBoxFactory)
 public:
 
@@ -970,7 +970,7 @@ void QtDoubleSpinBoxFactory::disconnectPropertyManager(QtDoublePropertyManager *
 
 class QtLineEditFactoryPrivate : public EditorFactoryPrivate<QLineEdit>
 {
-    QtLineEditFactory *q_ptr;
+    QtLineEditFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtLineEditFactory)
 public:
 
@@ -1171,7 +1171,7 @@ void QtLineEditFactory::disconnectPropertyManager(QtStringPropertyManager *manag
 
 class QtDateEditFactoryPrivate : public EditorFactoryPrivate<QDateEdit>
 {
-    QtDateEditFactory *q_ptr;
+    QtDateEditFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtDateEditFactory)
 public:
 
@@ -1307,7 +1307,7 @@ void QtDateEditFactory::disconnectPropertyManager(QtDatePropertyManager *manager
 
 class QtTimeEditFactoryPrivate : public EditorFactoryPrivate<QTimeEdit>
 {
-    QtTimeEditFactory *q_ptr;
+    QtTimeEditFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtTimeEditFactory)
 public:
 
@@ -1416,7 +1416,7 @@ void QtTimeEditFactory::disconnectPropertyManager(QtTimePropertyManager *manager
 
 class QtDateTimeEditFactoryPrivate : public EditorFactoryPrivate<QDateTimeEdit>
 {
-    QtDateTimeEditFactory *q_ptr;
+    QtDateTimeEditFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtDateTimeEditFactory)
 public:
 
@@ -1528,7 +1528,7 @@ void QtDateTimeEditFactory::disconnectPropertyManager(QtDateTimePropertyManager 
 
 class QtKeySequenceEditorFactoryPrivate : public EditorFactoryPrivate<QtKeySequenceEdit>
 {
-    QtKeySequenceEditorFactory *q_ptr;
+    QtKeySequenceEditorFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtKeySequenceEditorFactory)
 public:
 
@@ -1641,7 +1641,7 @@ class QtCharEdit : public QWidget
 {
     Q_OBJECT
 public:
-    QtCharEdit(QWidget *parent = 0);
+    explicit QtCharEdit(QWidget *parent = 0);
 
     QChar value() const;
     bool eventFilter(QObject *o, QEvent *e);
@@ -1817,7 +1817,7 @@ bool QtCharEdit::event(QEvent *e)
 
 class QtCharEditorFactoryPrivate : public EditorFactoryPrivate<QtCharEdit>
 {
-    QtCharEditorFactory *q_ptr;
+    QtCharEditorFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtCharEditorFactory)
 public:
 
@@ -1929,7 +1929,7 @@ void QtCharEditorFactory::disconnectPropertyManager(QtCharPropertyManager *manag
 
 class QtEnumEditorFactoryPrivate : public EditorFactoryPrivate<QComboBox>
 {
-    QtEnumEditorFactory *q_ptr;
+    QtEnumEditorFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtEnumEditorFactory)
 public:
 
@@ -2158,7 +2158,7 @@ Q_GLOBAL_STATIC(QtCursorDatabase, cursorDatabase)
 
 class QtCursorEditorFactoryPrivate
 {
-    QtCursorEditorFactory *q_ptr;
+    QtCursorEditorFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtCursorEditorFactory)
 public:
     QtCursorEditorFactoryPrivate();
@@ -2167,14 +2167,14 @@ public:
     void slotEnumChanged(QtProperty *property, int value);
     void slotEditorDestroyed(QObject *object);
 
-    QtEnumEditorFactory *m_enumEditorFactory;
-    QtEnumPropertyManager *m_enumPropertyManager;
+    QtEnumEditorFactory *m_enumEditorFactory {};
+    QtEnumPropertyManager *m_enumPropertyManager {};
 
     QMap<QtProperty *, QtProperty *> m_propertyToEnum;
     QMap<QtProperty *, QtProperty *> m_enumToProperty;
     QMap<QtProperty *, QList<QWidget *> > m_enumToEditors;
     QMap<QWidget *, QtProperty *> m_editorToEnum;
-    bool m_updatingEnum;
+    bool m_updatingEnum {};
 };
 
 QtCursorEditorFactoryPrivate::QtCursorEditorFactoryPrivate()
@@ -2325,7 +2325,7 @@ class QtColorEditWidget : public QWidget {
     Q_OBJECT
 
 public:
-    QtColorEditWidget(QWidget *parent);
+    explicit QtColorEditWidget(QWidget *parent);
 
     bool eventFilter(QObject *obj, QEvent *ev);
 
@@ -2429,7 +2429,7 @@ void QtColorEditWidget::paintEvent(QPaintEvent *)
 
 class QtColorEditorFactoryPrivate : public EditorFactoryPrivate<QtColorEditWidget>
 {
-    QtColorEditorFactory *q_ptr;
+    QtColorEditorFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtColorEditorFactory)
 public:
 
@@ -2534,7 +2534,7 @@ class QtFontEditWidget : public QWidget {
     Q_OBJECT
 
 public:
-    QtFontEditWidget(QWidget *parent);
+    explicit QtFontEditWidget(QWidget *parent);
 
     bool eventFilter(QObject *obj, QEvent *ev);
 
@@ -2651,7 +2651,7 @@ void QtFontEditWidget::paintEvent(QPaintEvent *)
 
 class QtFontEditorFactoryPrivate : public EditorFactoryPrivate<QtFontEditWidget>
 {
-    QtFontEditorFactory *q_ptr;
+    QtFontEditorFactory *q_ptr {};
     Q_DECLARE_PUBLIC(QtFontEditorFactory)
 public:
 

@@ -54,7 +54,7 @@ QT_BEGIN_NAMESPACE
 
 class QtButtonPropertyBrowserPrivate
 {
-    QtButtonPropertyBrowser *q_ptr;
+    QtButtonPropertyBrowser *q_ptr {};
     Q_DECLARE_PUBLIC(QtButtonPropertyBrowser)
 public:
 
@@ -98,7 +98,7 @@ private:
     QMap<WidgetItem *, QtBrowserItem *> m_itemToIndex;
     QMap<QWidget *, WidgetItem *> m_widgetToItem;
     QMap<QObject *, WidgetItem *> m_buttonToItem;
-    QGridLayout *m_mainLayout;
+    QGridLayout *m_mainLayout {};
     QList<WidgetItem *> m_children;
     QList<WidgetItem *> m_recreateQueue;
 };

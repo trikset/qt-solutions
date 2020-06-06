@@ -53,7 +53,7 @@ QT_BEGIN_NAMESPACE
 
 class QtGroupBoxPropertyBrowserPrivate
 {
-    QtGroupBoxPropertyBrowser *q_ptr;
+    QtGroupBoxPropertyBrowser *q_ptr {};
     Q_DECLARE_PUBLIC(QtGroupBoxPropertyBrowser)
 public:
 
@@ -92,7 +92,7 @@ private:
     QMap<QtBrowserItem *, WidgetItem *> m_indexToItem;
     QMap<WidgetItem *, QtBrowserItem *> m_itemToIndex;
     QMap<QWidget *, WidgetItem *> m_widgetToItem;
-    QGridLayout *m_mainLayout;
+    QGridLayout *m_mainLayout {};
     QList<WidgetItem *> m_children;
     QList<WidgetItem *> m_recreateQueue;
 };

@@ -151,35 +151,35 @@ namespace {
 
 namespace {
 template <class Value>
-void orderBorders(Value &minVal, Value &maxVal)
+static void orderBorders(Value *minVal, Value *maxVal)
 {
     if (minVal > maxVal)
         qSwap(minVal, maxVal);
 }
 
 template <class Value>
-static void orderSizeBorders(Value &minVal, Value &maxVal)
+static void orderSizeBorders(Value *minVal, Value *maxVal)
 {
-    Value fromSize = minVal;
-    Value toSize = maxVal;
+    Value fromSize = *minVal;
+    Value toSize = *maxVal;
     if (fromSize.width() > toSize.width()) {
-        fromSize.setWidth(maxVal.width());
-        toSize.setWidth(minVal.width());
+    	fromSize.setWidth(maxVal->width());
+    	toSize.setWidth(minVal->width());
     }
     if (fromSize.height() > toSize.height()) {
-        fromSize.setHeight(maxVal.height());
-        toSize.setHeight(minVal.height());
+    	fromSize.setHeight(maxVal->height());
+    	toSize.setHeight(minVal->height());
     }
-    minVal = fromSize;
-    maxVal = toSize;
+    *minVal = fromSize;
+    *maxVal = toSize;
 }
 
-void orderBorders(QSize &minVal, QSize &maxVal)
+static void orderBorders(QSize *minVal, QSize *maxVal)
 {
     orderSizeBorders(minVal, maxVal);
 }
 
-void orderBorders(QSizeF &minVal, QSizeF &maxVal)
+static void orderBorders(QSizeF *minVal, QSizeF *maxVal)
 {
     orderSizeBorders(minVal, maxVal);
 }
@@ -295,7 +295,7 @@ static void setBorderValues(PropertyManager *manager, PropertyManagerPrivate *ma
 
     Value fromVal = minVal;
     Value toVal = maxVal;
-    orderBorders(fromVal, toVal);
+    orderBorders(&fromVal, &toVal);
 
     PrivateData &data = it.value();
 
@@ -392,7 +392,7 @@ class QtMetaEnumWrapper : public QObject
 public:
     QSizePolicy::Policy policy() const { return QSizePolicy::Ignored; }
 private:
-    QtMetaEnumWrapper(QObject *parent) : QObject(parent) {}
+    explicit QtMetaEnumWrapper(QObject *parent) : QObject(parent) {}
 };
 
 class QtMetaEnumProvider
@@ -619,7 +619,7 @@ void QtGroupPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtIntPropertyManagerPrivate
 {
-    QtIntPropertyManager *q_ptr;
+    QtIntPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtIntPropertyManager)
 public:
 
@@ -931,7 +931,7 @@ void QtIntPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtDoublePropertyManagerPrivate
 {
-    QtDoublePropertyManager *q_ptr;
+    QtDoublePropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtDoublePropertyManager)
 public:
 
@@ -1297,7 +1297,7 @@ void QtDoublePropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtStringPropertyManagerPrivate
 {
-    QtStringPropertyManager *q_ptr;
+    QtStringPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtStringPropertyManager)
 public:
 
@@ -1595,7 +1595,7 @@ static QIcon drawCheckBox(bool value)
 
 class QtBoolPropertyManagerPrivate
 {
-    QtBoolPropertyManager *q_ptr;
+    QtBoolPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtBoolPropertyManager)
 public:
     QtBoolPropertyManagerPrivate();
@@ -1773,7 +1773,7 @@ void QtBoolPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtDatePropertyManagerPrivate
 {
-    QtDatePropertyManager *q_ptr;
+    QtDatePropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtDatePropertyManager)
 public:
 
@@ -2005,7 +2005,7 @@ void QtDatePropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtTimePropertyManagerPrivate
 {
-    QtTimePropertyManager *q_ptr;
+    QtTimePropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtTimePropertyManager)
 public:
 
@@ -2121,7 +2121,7 @@ void QtTimePropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtDateTimePropertyManagerPrivate
 {
-    QtDateTimePropertyManager *q_ptr;
+    QtDateTimePropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtDateTimePropertyManager)
 public:
 
@@ -2235,7 +2235,7 @@ void QtDateTimePropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtKeySequencePropertyManagerPrivate
 {
-    QtKeySequencePropertyManager *q_ptr;
+    QtKeySequencePropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtKeySequencePropertyManager)
 public:
 
@@ -2345,7 +2345,7 @@ void QtKeySequencePropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtCharPropertyManagerPrivate
 {
-    QtCharPropertyManager *q_ptr;
+    QtCharPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtCharPropertyManager)
 public:
 
@@ -2454,7 +2454,7 @@ void QtCharPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtLocalePropertyManagerPrivate
 {
-    QtLocalePropertyManager *q_ptr;
+    QtLocalePropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtLocalePropertyManager)
 public:
 
@@ -2466,7 +2466,7 @@ public:
     typedef QMap<const QtProperty *, QLocale> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtEnumPropertyManager *m_enumPropertyManager;
+    QtEnumPropertyManager *m_enumPropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToLanguage;
     QMap<const QtProperty *, QtProperty *> m_propertyToCountry;
@@ -2603,7 +2603,7 @@ QString QtLocalePropertyManager::valueText(const QtProperty *property) const
     if (it == d_ptr->m_values.constEnd())
         return QString();
 
-    QLocale loc = it.value();
+    const QLocale &loc = it.value();
 
     int langIdx = 0;
     int countryIdx = 0;
@@ -2703,7 +2703,7 @@ void QtLocalePropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtPointPropertyManagerPrivate
 {
-    QtPointPropertyManager *q_ptr;
+    QtPointPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtPointPropertyManager)
 public:
 
@@ -2713,7 +2713,7 @@ public:
     typedef QMap<const QtProperty *, QPoint> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
+    QtIntPropertyManager *m_intPropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToX;
     QMap<const QtProperty *, QtProperty *> m_propertyToY;
@@ -2915,7 +2915,7 @@ void QtPointPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtPointFPropertyManagerPrivate
 {
-    QtPointFPropertyManager *q_ptr;
+    QtPointFPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtPointFPropertyManager)
 public:
 
@@ -2932,7 +2932,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtDoublePropertyManager *m_doublePropertyManager;
+    QtDoublePropertyManager *m_doublePropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToX;
     QMap<const QtProperty *, QtProperty *> m_propertyToY;
@@ -3191,7 +3191,7 @@ void QtPointFPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtSizePropertyManagerPrivate
 {
-    QtSizePropertyManager *q_ptr;
+    QtSizePropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtSizePropertyManager)
 public:
 
@@ -3216,7 +3216,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
+    QtIntPropertyManager *m_intPropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToW;
     QMap<const QtProperty *, QtProperty *> m_propertyToH;
@@ -3535,7 +3535,7 @@ void QtSizePropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtSizeFPropertyManagerPrivate
 {
-    QtSizeFPropertyManager *q_ptr;
+    QtSizeFPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtSizeFPropertyManager)
 public:
 
@@ -3561,7 +3561,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtDoublePropertyManager *m_doublePropertyManager;
+    QtDoublePropertyManager *m_doublePropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToW;
     QMap<const QtProperty *, QtProperty *> m_propertyToH;
@@ -3935,7 +3935,7 @@ void QtSizeFPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtRectPropertyManagerPrivate
 {
-    QtRectPropertyManager *q_ptr;
+    QtRectPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtRectPropertyManager)
 public:
 
@@ -3953,7 +3953,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
+    QtIntPropertyManager *m_intPropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToX;
     QMap<const QtProperty *, QtProperty *> m_propertyToY;
@@ -4343,7 +4343,7 @@ void QtRectPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtRectFPropertyManagerPrivate
 {
-    QtRectFPropertyManager *q_ptr;
+    QtRectFPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtRectFPropertyManager)
 public:
 
@@ -4362,7 +4362,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtDoublePropertyManager *m_doublePropertyManager;
+    QtDoublePropertyManager *m_doublePropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToX;
     QMap<const QtProperty *, QtProperty *> m_propertyToY;
@@ -4813,7 +4813,7 @@ void QtRectFPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtEnumPropertyManagerPrivate
 {
-    QtEnumPropertyManager *q_ptr;
+    QtEnumPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtEnumPropertyManager)
 public:
 
@@ -5157,7 +5157,7 @@ void QtEnumPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtFlagPropertyManagerPrivate
 {
-    QtFlagPropertyManager *q_ptr;
+    QtFlagPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtFlagPropertyManager)
 public:
 
@@ -5174,7 +5174,7 @@ public:
     typedef QMap<const QtProperty *, Data> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtBoolPropertyManager *m_boolPropertyManager;
+    QtBoolPropertyManager *m_boolPropertyManager {};
 
     QMap<const QtProperty *, QList<QtProperty *> > m_propertyToFlags;
 
@@ -5484,7 +5484,7 @@ void QtFlagPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtSizePolicyPropertyManagerPrivate
 {
-    QtSizePolicyPropertyManager *q_ptr;
+    QtSizePolicyPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtSizePolicyPropertyManager)
 public:
 
@@ -5497,8 +5497,8 @@ public:
     typedef QMap<const QtProperty *, QSizePolicy> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
-    QtEnumPropertyManager *m_enumPropertyManager;
+    QtIntPropertyManager *m_intPropertyManager {};
+    QtEnumPropertyManager *m_enumPropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToHPolicy;
     QMap<const QtProperty *, QtProperty *> m_propertyToVPolicy;
@@ -5809,7 +5809,7 @@ Q_GLOBAL_STATIC(QFontDatabase, fontDatabase)
 
 class QtFontPropertyManagerPrivate
 {
-    QtFontPropertyManager *q_ptr;
+    QtFontPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtFontPropertyManager)
 public:
 
@@ -5827,9 +5827,9 @@ public:
     typedef QMap<const QtProperty *, QFont> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
-    QtEnumPropertyManager *m_enumPropertyManager;
-    QtBoolPropertyManager *m_boolPropertyManager;
+    QtIntPropertyManager *m_intPropertyManager {};
+    QtEnumPropertyManager *m_enumPropertyManager {};
+    QtBoolPropertyManager *m_boolPropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToFamily;
     QMap<const QtProperty *, QtProperty *> m_propertyToPointSize;
@@ -6284,7 +6284,7 @@ void QtFontPropertyManager::uninitializeProperty(QtProperty *property)
 
 class QtColorPropertyManagerPrivate
 {
-    QtColorPropertyManager *q_ptr;
+    QtColorPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtColorPropertyManager)
 public:
 
@@ -6294,7 +6294,7 @@ public:
     typedef QMap<const QtProperty *, QColor> PropertyValueMap;
     PropertyValueMap m_values;
 
-    QtIntPropertyManager *m_intPropertyManager;
+    QtIntPropertyManager *m_intPropertyManager {};
 
     QMap<const QtProperty *, QtProperty *> m_propertyToR;
     QMap<const QtProperty *, QtProperty *> m_propertyToG;
@@ -6584,7 +6584,7 @@ static void clearCursorDatabase()
 
 class QtCursorPropertyManagerPrivate
 {
-    QtCursorPropertyManager *q_ptr;
+    QtCursorPropertyManager *q_ptr {};
     Q_DECLARE_PUBLIC(QtCursorPropertyManager)
 public:
     typedef QMap<const QtProperty *, QCursor> PropertyValueMap;
